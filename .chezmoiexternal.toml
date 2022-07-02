@@ -18,6 +18,10 @@ refreshPeriod = "168h"                                                    # 1 we
     include = ["bin/exa"]
     refreshPeriod = "168h"
 
+["{{- $cdir -}}/_exa"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/ogham/exa/master/completions/zsh/_exa"
+
 {{ $ageVersion := (gitHubLatestRelease "FiloSottile/age").TagName -}}
 ["{{- $bdir -}}/age"]
     type = "file"
@@ -58,7 +62,7 @@ refreshPeriod = "168h"                                                    # 1 we
   type = "file"
   url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
 
-["{{- $cdir -}}/fzf"]
+["{{- $cdir -}}/_fzf"]
   type = "file"
   url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
 
@@ -71,6 +75,14 @@ refreshPeriod = "168h"                                                    # 1 we
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu/bat"]
 
+["{{- $cdir -}}/_bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu.tar.gz"
+  ["{{- $cdir -}}/_bat" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu/autocomplete/bat.zsh"]
+
+
 ["{{- $bdir -}}/rg"]
   type = "file"
   url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl.tar.gz"
@@ -79,20 +91,12 @@ refreshPeriod = "168h"                                                    # 1 we
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/rg"]
 
-["{{- $cdir -}}/rg"]
+["{{- $cdir -}}/_rg"]
   type = "file"
   url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl.tar.gz"
-  ["{{- $cdir -}}/rg" .filter]
+  ["{{- $cdir -}}/_rg" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/complete/_rg"]
-
-["{{- $cdir -}}/chezmoi"]
-  type = "file"
-  url = "https://github.com/twpayne/chezmoi/releases/download/{{ (gitHubLatestRelease "twpayne/chezmoi").TagName }}/chezmoi_{{ (gitHubLatestRelease "twpayne/chezmoi").TagName | trimPrefix "v" }}_linux-glibc_amd64.tar.gz"
-  ["{{- $cdir -}}/chezmoi" .filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "completions/chezmoi.zsh"]
-
 
 [".asdf"]
   type = "git-repo"

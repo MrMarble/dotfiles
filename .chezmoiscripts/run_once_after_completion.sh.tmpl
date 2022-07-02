@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+chezmoi completion zsh --output={{- .compdir -}}/_chezmoi
+kubectl completion zsh > {{ .compdir -}}/_kubectl
+
+# Set correct permissions
+for bcfile in {{ .compdir -}}/* ; do
+  chmod 775 $bcfile
+done
+
+# Remove zcompdump file if exists
+if [ -f {{- .chezmoi.homeDir -}}/.zcompdump ]; then
+  rm -f {{ .chezmoi.homeDir -}}/.zcompdump*
+fi
