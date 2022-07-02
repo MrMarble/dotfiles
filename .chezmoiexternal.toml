@@ -40,3 +40,32 @@ refreshPeriod = "168h"                                                    # 1 we
   type = "file"
   url = "https://github.com/direnv/direnv/releases/download/{{ (gitHubLatestRelease "direnv/direnv").TagName }}/direnv.{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
   executable = true
+
+[".local/bin/fzf"]
+  type = "file"
+  url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
+  executable = true
+  [".local/bin/fzf" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
+
+[".zshrc.d/fzf-keybindings.zsh"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
+
+
+[".local/bin/bat"]
+  type = "file"
+  url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu.tar.gz"
+  executable = true
+  [".local/bin/bat" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu/bat"]
+
+[".local/bin/rg"]
+  type = "file"
+  url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl.tar.gz"
+  executable = true
+  [".local/bin/rg" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/rg"]

@@ -12,6 +12,11 @@ zmodule input
 zmodule utility
 # Adds aliases and better defaults for exa.
 zmodule exa
+# Sets up asdf, with auto install and optimized usage of the direnv plugin.
+zmodule asdf
+# Configures fzf for faster fetching of files and directories names.
+zmodule fzf
+
 #
 # Prompt
 #
