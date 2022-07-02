@@ -1,0 +1,11 @@
+[diff]
+    tool = "difft"
+    external = "difft"
+
+[difftool]
+    prompt = false
+
+[difftool "difft"]
+    cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+    difftool = true
