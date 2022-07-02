@@ -1,0 +1,13 @@
+{{- $cType  := "term" }}
+
+{{- $compDir := joinPath .chezmoi.homeDir ".local/share/zsh-completion" }}
+{{- if stat ( env "${XDG_DATA_HOME}" ) }}
+{{-   $compDir = joinPath ( env "${XDG_DATA_HOME}" ) "/zsh-completion" }}
+{{- end }}
+{{- $binDir := joinPath .chezmoi.homeDir ".local/bin" }}
+
+
+[data]
+  ctype   = "{{ $cType | trim }}"
+  compdir = "{{ $compDir | trim }}"
+  bindir  = "{{ $binDir | trim }}"

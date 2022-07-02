@@ -1,10 +1,15 @@
+# Remove trailing slash
+{{ $bdir := regexSplit ( list .chezmoi.homeDir "/" | join "" ) .bindir -1 | last }}
+{{ $cdir := regexSplit ( list .chezmoi.homeDir "/" | join "" ) .compdir -1 | last }}
+
+
 [".zim/zimfw.zsh"]
 type = "file"
 url = "https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh"
 refreshPeriod = "168h"                                                    # 1 week
 
 {{ $exaVersion := (gitHubLatestRelease "ogham/exa").TagName  -}}
-[".local/bin"]
+["{{- $bdir -}}"]
     type = "archive"
     url = "https://github.com/ogham/exa/releases/download/{{ $exaVersion }}/exa-{{ .chezmoi.os }}-x86_64-{{ $exaVersion }}.zip"
     executable = true
@@ -14,16 +19,16 @@ refreshPeriod = "168h"                                                    # 1 we
     refreshPeriod = "168h"
 
 {{ $ageVersion := (gitHubLatestRelease "FiloSottile/age").TagName -}}
-[".local/bin/age"]
+["{{- $bdir -}}/age"]
     type = "file"
     url = "https://github.com/FiloSottile/age/releases/download/{{ $ageVersion }}/age-{{ $ageVersion }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
     executable = true
     refreshPeriod = "168h"
-    [".local/bin/age".filter]
+    ["{{- $bdir -}}/age".filter]
         command = "tar"
         args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "age/age"]
 
-[".local/bin/kubectl"]
+["{{- $bdir -}}/kubectl"]
   type = "file"
   url = "https://dl.k8s.io/release/{{ output "wget" "-q" "-O" "-" "https://dl.k8s.io/release/stable.txt" }}/bin/{{ .chezmoi.os }}/{{ .chezmoi.arch }}/kubectl"
   executable = true
@@ -36,16 +41,16 @@ refreshPeriod = "168h"                                                    # 1 we
     include = ["*/*.zsh"]
     refreshPeriod = "168h"
 
-[".local/bin/direnv"]
+["{{- $bdir -}}/direnv"]
   type = "file"
   url = "https://github.com/direnv/direnv/releases/download/{{ (gitHubLatestRelease "direnv/direnv").TagName }}/direnv.{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
   executable = true
 
-[".local/bin/fzf"]
+["{{- $bdir -}}/fzf"]
   type = "file"
   url = "https://github.com/junegunn/fzf/releases/download/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/fzf-{{ (gitHubLatestRelease "junegunn/fzf").TagName }}-{{ .chezmoi.os }}_{{ .chezmoi.arch }}.tar.gz"
   executable = true
-  [".local/bin/fzf" .filter]
+  ["{{- $bdir -}}/fzf" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "fzf"]
 
@@ -53,19 +58,42 @@ refreshPeriod = "168h"                                                    # 1 we
   type = "file"
   url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/key-bindings.zsh"
 
+["{{- $cdir -}}/fzf"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/junegunn/fzf/{{ (gitHubLatestRelease "junegunn/fzf").TagName }}/shell/completion.zsh"
 
-[".local/bin/bat"]
+
+["{{- $bdir -}}/bat"]
   type = "file"
   url = "https://github.com/sharkdp/bat/releases/download/{{ (gitHubLatestRelease "sharkdp/bat").TagName }}/bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu.tar.gz"
   executable = true
-  [".local/bin/bat" .filter]
+  ["{{- $bdir -}}/bat" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "bat-{{ (gitHubLatestRelease "sharkdp/bat").TagName }}-x86_64-unknown-linux-gnu/bat"]
 
-[".local/bin/rg"]
+["{{- $bdir -}}/rg"]
   type = "file"
   url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl.tar.gz"
   executable = true
-  [".local/bin/rg" .filter]
+  ["{{- $bdir -}}/rg" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/rg"]
+
+["{{- $cdir -}}/rg"]
+  type = "file"
+  url = "https://github.com/BurntSushi/ripgrep/releases/download/{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}/ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl.tar.gz"
+  ["{{- $cdir -}}/rg" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/complete/_rg"]
+
+["{{- $cdir -}}/chezmoi"]
+  type = "file"
+  url = "https://github.com/twpayne/chezmoi/releases/download/{{ (gitHubLatestRelease "twpayne/chezmoi").TagName }}/chezmoi_{{ (gitHubLatestRelease "twpayne/chezmoi").TagName | trimPrefix "v" }}_linux-glibc_amd64.tar.gz"
+  ["{{- $cdir -}}/chezmoi" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "completions/chezmoi.zsh"]
+
+
+[".asdf"]
+  type = "git-repo"
+  url = "https://github.com/asdf-vm/asdf.git"
