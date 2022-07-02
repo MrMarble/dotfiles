@@ -1,0 +1,2 @@
+#Load ZSH config files from a zshrc.d directory
+source ${ZDOTDIR}/.zplugins/zshrc.d/zshrc.d.zsh
