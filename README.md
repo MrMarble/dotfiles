@@ -36,6 +36,8 @@ Tools that are installed automatically
 | [kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) | Manage kubernetes                                      |
 | [ripgrep](https://github.com/BurntSushi/ripgrep)                    | Replacement for `grep`                                 |
 | [asdf](https://github.com/asdf-vm/asdf)                             | All-in-one version manager                             |
+| [difft](https://github.com/Wilfred/difftastic)                      | Structural `diff` that understands syntax              |
+| [nvim](https://github.com/neovim/neovim)                            | Replacement for `vim`                                  |
 
 
 ### asdf
