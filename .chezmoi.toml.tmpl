@@ -11,3 +11,13 @@
   ctype   = "{{ $cType | trim }}"
   compdir = "{{ $compDir | trim }}"
   bindir  = "{{ $binDir | trim }}"
+
+[diff]
+    command = "difft"
+    args = ["--color", "always", "--missing-as-empty", "--skip-unchanged"]
+    pager = "cat"
+    exclude = ["externals"]
+
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
