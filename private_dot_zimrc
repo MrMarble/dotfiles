@@ -8,8 +8,6 @@ zmodule environment
 zmodule git
 # Applies correct bindkeys for input events.
 zmodule input
-# Utility aliases and functions. Adds colour to ls, grep and less.
-zmodule utility
 # Adds aliases and better defaults for exa.
 zmodule exa
 # Sets up asdf, with auto install and optimized usage of the direnv plugin.
