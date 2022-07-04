@@ -24,7 +24,7 @@ zmodule git-info
 # Exposes current working directory to prompt
 zmodule prompt-pwd
 # Theme
-zmodule gitster
+zmodule romkatv/powerlevel10k --use degit
 
 #
 # Completion
