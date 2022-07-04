@@ -48,5 +48,5 @@ Replacement for `nvm`, `pyenv`, `goenv`...
 Installed plugins:
 
 - node
-    - configured to install default npm packages on each version. See [default-npm-packages](/private_dot_default-npm-packages)
+    - configured to install default npm packages on each version. See [default-npm-packages](/home/private_dot_default-npm-packages)
 - go
