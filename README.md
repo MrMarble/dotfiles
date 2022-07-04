@@ -38,6 +38,7 @@ Tools that are installed automatically
 | [asdf](https://github.com/asdf-vm/asdf)                             | All-in-one version manager                             |
 | [difft](https://github.com/Wilfred/difftastic)                      | Structural `diff` that understands syntax              |
 | [nvim](https://github.com/neovim/neovim)                            | Replacement for `vim`                                  |
+| [safe-rm](https://github.com/kaelzhang/shell-safe-rm)               | Safe version of `rm`                                   |
 
 
 ### asdf
