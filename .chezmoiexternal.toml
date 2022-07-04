@@ -117,3 +117,8 @@ refreshPeriod = "168h"                                                    # 1 we
   ["{{- $bdir -}}/nvim" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "nvim-linux64/bin/nvim"]
+
+["{{- $bdir -}}/safe-rm"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/kaelzhang/shell-safe-rm/master/bin/rm.sh"
+  executable = true
