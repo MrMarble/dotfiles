@@ -12,4 +12,10 @@ export PATH="${PATH}:${HOME}/bin/"
 eval "$(direnv hook zsh)"
 
 # Set default editor
-export EDITOR=nvim
+if command -v code &> /dev/null
+then
+    export EDITOR="code --wait"
+else
+    export EDITOR=nvim
+fi
+
