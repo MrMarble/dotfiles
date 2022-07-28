@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/mrmarble/Documentos/repos/budget-in'
+let g:netrw_dirhist_4='/home/mrmarble/Documentos/repos/budget-in/src/store'
+let g:netrw_dirhist_3='/home/mrmarble/Documentos/repos/budget-in/src'
+let g:netrw_dirhist_2='/home/mrmarble/Documentos/repos/budget-in'
+let g:netrw_dirhist_1='/home/mrmarble/Documentos/repos/budget-in/src/store'
+let g:netrw_dirhist_0='/home/mrmarble/Documentos/repos/budget-in/src'
+let g:netrw_dirhist_9='/home/mrmarble/Documentos/repos/budget-in'
+let g:netrw_dirhist_8='/home/mrmarble/Documentos/repos/budget-in/src/store'
+let g:netrw_dirhist_7='/home/mrmarble/Documentos/repos/budget-in/src'
+let g:netrw_dirhist_6='/home/mrmarble/Documentos/repos/budget-in'

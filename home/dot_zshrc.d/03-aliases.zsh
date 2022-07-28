@@ -4,6 +4,19 @@ alias cat=bat -P
 alias vim=nvim
 alias vi=nvim
 
+
+# Git
+alias g=git
+alias ga=git add
+alias gb=git branch
+alias gbd=git branch -d
+alias gc=git commit
+alias gcb=git checkout -b
+alias gco=git checkout
+alias gf=git fetch
+alias gfa=git fetch --all
+alias ggpull=git pull --rebase
+
 # Always wear a condom
 alias chmod='chmod --preserve-root -v'
 alias chown='chown --preserve-root -v'

@@ -99,8 +99,11 @@ refreshPeriod = "168h"                                                    # 1 we
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "ripgrep-{{ (gitHubLatestRelease "BurntSushi/ripgrep").TagName }}-x86_64-unknown-linux-musl/complete/_rg"]
 
 [".asdf"]
-  type = "git-repo"
-  url = "https://github.com/asdf-vm/asdf.git"
+  type = "file"
+  url = "https://github.com/asdf-vm/asdf/archive/refs/tags/{{ (gitHubLatestRelease "asdf-vm/asdf").TagName  }}.tar.gz"
+  [".asdf" .filter]
+    command = "tar"
+    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout"]
 
 ["{{- $bdir -}}/difft"]
   type = "file"
@@ -109,14 +112,6 @@ refreshPeriod = "168h"                                                    # 1 we
   ["{{- $bdir -}}/difft" .filter]
     command = "tar"
     args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "difft"]
-
-["{{- $bdir -}}/nvim"]
-  type = "file"
-  url = "https://github.com/neovim/neovim/releases/download/{{ (gitHubLatestRelease "neovim/neovim").TagName }}/nvim-linux64.tar.gz"
-  executable = true
-  ["{{- $bdir -}}/nvim" .filter]
-    command = "tar"
-    args = ["--extract", "--file", "/dev/stdin", "--gzip", "--to-stdout", "nvim-linux64/bin/nvim"]
 
 ["{{- $bdir -}}/safe-rm"]
   type = "file"
