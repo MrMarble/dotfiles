@@ -1,0 +1,83 @@
+---
+- name: "Direnv | Download Latest Version JSON"
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/direnv/direnv/releases/latest
+  register: direnv_latest_version_json
+  changed_when: false
+
+
+- name: "Direnv | Registering direnv Latest Release"
+  ansible.builtin.set_fact:
+    direnv_latest_release: "{{ direnv_latest_version_json.json.tag_name }}"
+
+- name: "Direnv | Registering direnv Latest Version"
+  ansible.builtin.set_fact:
+    direnv_latest_version: "{{ direnv_latest_release.stdout | default('') }}"
+
+- name: "Direnv | Getting version information"
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/direnv --version | awk 'NR==1' | sed 's/^/v/'
+  args:
+    executable: /bin/bash
+  register: current_direnv_version
+  changed_when: false
+  failed_when: false
+
+- name: "Direnv | Show current_direnv_version debug"
+  ansible.builtin.debug:
+    var: current_direnv_version.stdout
+
+- name: "Direnv | Show direnv_latest_release debug"
+  ansible.builtin.debug:
+    var: direnv_latest_release
+
+- name: "Direnv | Install"
+  when: direnv_latest_release not in current_direnv_version.stdout|default('')
+  block:
+    # regex_replace('^.', '') removes the first character from the string (the 'v' in the version number)
+    - name: "Direnv | Define direnv_file"
+      ansible.builtin.set_fact:
+        direnv_file: "direnv.linux-amd64"
+
+    - name: "Direnv | Ensure clean download destination"
+      ansible.builtin.file:
+        path: "/tmp/{{ direnv_file }}"
+        state: absent
+      become: true
+
+    - name: "Direnv | Downloading direnv Release"
+      ansible.builtin.get_url:
+        url: "https://github.com/direnv/direnv/releases/download/{{ direnv_latest_release }}/{{ direnv_file }}"
+        dest: /tmp/
+        mode: "0644"
+        force: true
+
+    - name: "Direnv | Remove any current direnv installations"
+      ansible.builtin.file:
+        path: /usr/local/bin/direnv
+        state: absent
+      become: true
+
+    - name: "Direnv | Install direnv"
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/tmp/{{ direnv_file }}"
+        dest: /usr/local/bin/direnv
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
+        force: true
+        mode: "0755"
+      become: true
+      notify:
+        - Remove downloaded direnv
+
+    - name: "Direnv | Ensure {{ ansible_user_dir }}/.config/direnv dir exists"
+      file: 
+        path: "{{ ansible_user_dir }}/.config/direnv"
+        state: directory
+
+    - name: "Direnv | Copy direnv.toml"
+      ansible.builtin.copy:
+        src: "direnv.toml"
+        dest: "{{ ansible_user_dir }}/.config/direnv/direnv.toml"
+        mode: "0644"

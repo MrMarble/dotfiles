@@ -1,0 +1,6 @@
+---
+- name: Remove downloaded direnv
+  ansible.builtin.file:
+    path: /tmp/{{ direnv_file }}
+    state: absent
+  become: true
