@@ -92,11 +92,11 @@ update_ansible_galaxy() {
   local os=$1
   local os_requirements=""
   _task "Updating Ansible Galaxy"
-  if [ -f "$DOTFILES_DIR/requirements/$os.yml" ]; then
+  if [ -f "$DOTFILES_DIR/requirements/$os.yaml" ]; then
     _task "${OVERWRITE}Updating Ansible Galaxy with OS Config: $os"
-    os_requirements="$DOTFILES_DIR/requirements/$os.yml"
+    os_requirements="$DOTFILES_DIR/requirements/$os.yaml"
   fi
-  _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
+  _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yaml $os_requirements"
 }
 
 source /etc/os-release
@@ -133,9 +133,9 @@ update_ansible_galaxy $ID
 
 _task "Running playbook"; _task_done
 if [[ -f $VAULT_SECRET ]]; then
-  ansible-playbook --vault-password-file $VAULT_SECRET "$DOTFILES_DIR/main.yml" "$@"
+  ansible-playbook -K --vault-password-file $VAULT_SECRET "$DOTFILES_DIR/main.yaml" "$@"
 else
-  ansible-playbook "$DOTFILES_DIR/main.yml" "$@"
+  ansible-playbook -K "$DOTFILES_DIR/main.yaml" "$@"
 fi
 
 popd 2>&1 > /dev/null
