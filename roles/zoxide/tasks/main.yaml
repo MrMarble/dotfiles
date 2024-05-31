@@ -21,10 +21,9 @@
         dest: "{{ ansible_user_dir }}/zoxide.install.sh"
         force: true
         mode: "0755"
-      notify:
-        - "Zoxide | Cleanup zoxide install script"
 
     - name: "Zoxide | Run the install script"
       ansible.builtin.script:
         cmd: "{{ ansible_user_dir }}/zoxide.install.sh"
-      become: true
+      notify:
+        - "Zoxide | Cleanup zoxide install script"
