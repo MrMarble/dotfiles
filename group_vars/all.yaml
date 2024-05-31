@@ -12,6 +12,6 @@ git_user_name: "Alvaro Tinoco"
 git_user_email: "alvarotinocomarmol@gmail.com"
 
 go:
-  packages:
-    - package: github.com/caarlos0/svu@latest
-      cmd: svu
+  # packages:
+  #   - package: github.com/caarlos0/svu@latest
+  #     cmd: svu
