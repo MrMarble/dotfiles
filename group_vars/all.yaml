@@ -7,6 +7,7 @@ default_roles:
   - fzf
   - gh
   - zoxide
+  - direnv
 
 git_user_name: "Alvaro Tinoco"
 git_user_email: "alvarotinocomarmol@gmail.com"

@@ -1,0 +1,7 @@
+---
+- name: "Fonts | {{ ansible_distribution }} | Install Fira Code font"
+  ansible.builtin.apt:
+    name:
+      - fonts-firacode
+    state: present
+  become: true

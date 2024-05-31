@@ -1,6 +1,6 @@
 ---
 - name: "Go-Lang | Install dependencies"
-  dnf:
+  apt:
     pkg:
       - 'curl'
       - 'gcc'
@@ -11,8 +11,8 @@
       - 'tar'
       - 'jq'
     state: present
-  register: dnf_result
+  register: apt_result
   become: true
-  until: dnf_result is success
+  until: apt_result is success
   retries: 1
   delay: 2

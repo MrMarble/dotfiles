@@ -105,6 +105,9 @@ case $ID in
   fedora)
     source "$DOTFILES_DIR/bin/_fedora"
     ;;
+  ubuntu)
+    source "$DOTFILES_DIR/bin/_ubuntu"
+    ;;
   *)
     _task "Unsupported OS"
     _cmd "echo 'Unsupported OS' && test 1 -eq 0"
