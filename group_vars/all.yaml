@@ -1,0 +1,17 @@
+default_roles:
+  - git
+  - fonts
+  - starship
+  - zsh
+  - go
+  - fzf
+  - gh
+  - zoxide
+
+git_user_name: "Alvaro Tinoco"
+git_user_email: "alvarotinocomarmol@gmail.com"
+
+go:
+  packages:
+    - package: github.com/caarlos0/svu@latest
+      cmd: svu

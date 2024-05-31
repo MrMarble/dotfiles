@@ -1,0 +1,5 @@
+---
+- name: Zoxide | Cleanup zoxide install script
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/zoxide.install.sh"
+    state: absent

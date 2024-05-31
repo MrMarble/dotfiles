@@ -1,0 +1,6 @@
+---
+- name: "Go-Lang | Run Tasks: {{ ansible_distribution }}"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yaml"
+
+- name: Go-lang | Install Packages
+  import_tasks: packages.yaml

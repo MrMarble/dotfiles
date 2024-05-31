@@ -1,0 +1,7 @@
+---
+- name: "Fonts | {{ ansible_distribution }} | Install Fira Code font"
+  ansible.builtin.dnf:
+    name:
+      - fira-code-fonts.noarch
+    state: present
+  become: true
