@@ -17,7 +17,7 @@ autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 
 # Load extras
-for file in $HOME/.config/zsh/*.zsh; do
+for file in $ZDOTDIR/snippets/*.zsh; do
   source "$file"
 done
 
