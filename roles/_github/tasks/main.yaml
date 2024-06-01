@@ -30,7 +30,7 @@
   ansible.builtin.debug:
     var: latest_release
 
-- name: "{{ name}} | Ensure the package facts are set"
+- name: "{{ name }} | Ensure the package facts are set"
   ansible.builtin.set_fact:
     github_pkg_filename: "{{
       filename
@@ -41,8 +41,8 @@
         | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64'))
         | replace('%ARCHRAW%', ansible_architecture)
       }}"
-    github_extacted_name: "{{
-      extacted_name
+    github_extracted_name: "{{
+      extracted_name | default('')
         | replace('%VERSION%', latest_release)
         | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
         | replace('%OS%', ansible_system | lower)
@@ -84,7 +84,7 @@
     - name: "{{ name }} | Install file"
       ansible.builtin.copy:
         remote_src: true
-        src: "/tmp/{{ github_extacted_name }}"
+        src: "/tmp/{{ github_extracted_name }}"
         dest: "{{ output }}"
         owner: "{{ host_user }}"
         group: "{{ host_user }}"
