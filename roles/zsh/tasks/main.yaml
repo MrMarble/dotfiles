@@ -1,103 +1,103 @@
 ---
-- name: "Zsh | Copy .zshenv"
+- name: Zsh | Copy .zshenv
   ansible.builtin.copy:
-    src: ".zshenv"
+    src: .zshenv
     dest: "{{ ansible_user_dir }}/.zshenv"
     mode: "0644"
 
 - name: Zsh | Ensure {{ ansible_user_dir }}/.config/zsh dir exists
-  file: 
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/zsh"
     state: directory
 
-- name: "Zsh | Copy .zshrc"
+- name: Zsh | Copy .zshrc
   ansible.builtin.copy:
-    src: ".zshrc"
+    src: .zshrc
     dest: "{{ ansible_user_dir }}/.config/zsh/.zshrc"
     mode: "0644"
 
-- name: "Zsh | Copy .zprofile"
+- name: Zsh | Copy .zprofile
   ansible.builtin.copy:
-    src: ".zprofile"
+    src: .zprofile
     dest: "{{ ansible_user_dir }}/.config/zsh/.zprofile"
     mode: "0644"
 
-- name: "Zsh | Copy custom zsh config"
+- name: Zsh | Copy custom zsh config
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.config/zsh/snippets"
-    src: "snippets/"
+    src: snippets/
     mode: "0644"
     directory_mode: "0755"
     force: true
 
-- name: "Zsh | Copy WSL zsh config"
+- name: Zsh | Copy WSL zsh config
   when: ansible_host_environment_is_wsl
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.config/zsh/snippets"
-    src: "wsl.zsh"
+    src: wsl.zsh
     mode: "0644"
     force: true
 
-- name: "Zsh | Set default terminal"
+- name: Zsh | Set default terminal
   ansible.builtin.user:
     name: "{{ host_user }}"
     shell: /usr/bin/zsh
   become: true
 
-- name: "Zsh | Detect zsh-autosuggestions"
+- name: Zsh | Detect zsh-autosuggestions
   ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.config/zsh/plugins/zsh-autosuggestions"
   register: autosuggestions
 
-- name: "Zsh | Register zsh-autosuggestions state"
+- name: Zsh | Register zsh-autosuggestions state
   ansible.builtin.set_fact:
     autosuggestions_is_installed: "{{ autosuggestions.stat.exists }}"
 
-- name: "Zsh | Debug autosuggestions_is_installed"
+- name: Zsh | Debug autosuggestions_is_installed
   ansible.builtin.debug:
     var: autosuggestions_is_installed
 
-- name: "Zsh | Install zsh-autosuggestions"
+- name: Zsh | Install zsh-autosuggestions
   when: not autosuggestions_is_installed
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     depth: 1
     dest: "{{ ansible_user_dir }}/.config/zsh/plugins/zsh-autosuggestions"
 
-- name: "Zsh | Detect zsh-syntax-highlighting"
+- name: Zsh | Detect zsh-syntax-highlighting
   ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.config/zsh/plugins/zsh-syntax-highlighting"
   register: syntaxhighlighting
 
-- name: "Zsh | Register zsh-syntax-highlighting state"
+- name: Zsh | Register zsh-syntax-highlighting state
   ansible.builtin.set_fact:
     syntaxhighlighting_is_installed: "{{ syntaxhighlighting.stat.exists }}"
 
-- name: "Zsh | Debug syntaxhighlighting_is_installed"
+- name: Zsh | Debug syntaxhighlighting_is_installed
   ansible.builtin.debug:
     var: syntaxhighlighting_is_installed
 
-- name: "Zsh | Install zsh-syntax-highlighting"
+- name: Zsh | Install zsh-syntax-highlighting
   when: not syntaxhighlighting_is_installed
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting
     depth: 1
     dest: "{{ ansible_user_dir }}/.config/zsh/plugins/zsh-syntax-highlighting"
 
-- name: "Zsh | Detect zsh-completions"
+- name: Zsh | Detect zsh-completions
   ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.config/zsh/plugins/zsh-completions"
   register: completions
 
-- name: "Zsh | Register zsh-completions state"
+- name: Zsh | Register zsh-completions state
   ansible.builtin.set_fact:
     completions_is_installed: "{{ completions.stat.exists }}"
 
-- name: "Zsh | Debug completions_is_installed"
+- name: Zsh | Debug completions_is_installed
   ansible.builtin.debug:
     var: completions_is_installed
 
-- name: "Zsh | Install zsh-completions"
+- name: Zsh | Install zsh-completions
   when: not completions_is_installed
   ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-completions

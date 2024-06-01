@@ -1,0 +1,83 @@
+---
+- name: "{{ github_task_name }} | Download Latest Version JSON"
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/{{ github_repo }}/releases/latest
+  register: latest_version_json
+  changed_when: false
+
+- name: "{{ github_task_name }} | Registering {{ github_task_name }} Latest Release"
+  ansible.builtin.set_fact:
+    latest_release: "{{ latest_version_json.json.tag_name }}"
+
+- name: "{{ github_task_name }} | Registering {{ github_task_name }} Latest Version"
+  ansible.builtin.set_fact:
+    latest_version: "{{ latest_release.stdout | default('') }}"
+
+- name: "{{ github_task_name }} | Getting version information"
+  ansible.builtin.shell:
+    cmd: "{{ github_current_version_cmd }}"
+  args:
+    executable: /bin/bash
+  register: current_version
+  changed_when: false
+  failed_when: false
+
+- name: "{{ github_task_name }} | Show current_version debug"
+  ansible.builtin.debug:
+    var: current_version.stdout
+
+- name: "{{ github_task_name }} | Show latest_release debug"
+  ansible.builtin.debug:
+    var: latest_release
+
+- name: "{{ github_task_name }} | Ensure the package facts are set"
+  ansible.builtin.set_fact:
+    github_pkg_filename: "{{ github_filename | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', '')) | replace('%OS%', ansible_system
+      | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64')) | replace('%ARCHRAW%', ansible_architecture)
+      }}"
+    github_extracted_name: "{{ github_extracted_name | default('') | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
+      | replace('%OS%', ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64'))
+      | replace('%ARCHRAW%', ansible_architecture) }}"
+
+- name: "{{ github_task_name }} | Install"
+  when: latest_release not in current_version.stdout|default('')
+  block:
+    - name: "{{ github_task_name }} | Ensure clean download destination"
+      ansible.builtin.file:
+        path: /tmp/{{ github_pkg_filename }}
+        state: absent
+      become: true
+
+    - name: "{{ github_task_name }} | Downloading Release"
+      ansible.builtin.get_url:
+        url: https://github.com/{{ github_repo }}/releases/download/{{ latest_release }}/{{ github_pkg_filename }}
+        dest: /tmp/
+        mode: "0644"
+        force: true
+
+    - name: "{{ github_task_name }} | Extract file"
+      when: (github_pkg_filename.find('.tar') != -1) or (github_pkg_filename.find('.zip') != -1)
+      ansible.builtin.unarchive:
+        src: /tmp/{{ github_pkg_filename }}
+        dest: /tmp
+      notify:
+        - Cleanup {{ github_task_name }} compressed file
+
+    - name: "{{ github_task_name }} | Remove any current installations"
+      ansible.builtin.file:
+        path: "{{ github_output }}"
+        state: absent
+      become: true
+
+    - name: "{{ github_task_name }} | Install file"
+      ansible.builtin.copy:
+        remote_src: true
+        src: /tmp/{{ github_extracted_name }}
+        dest: "{{ github_output }}"
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
+        force: true
+        mode: "0755"
+      become: true
+      notify:
+        - Remove extracted {{ github_task_name }} directory

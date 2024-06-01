@@ -1,15 +1,15 @@
 ---
-- name: "Go-Lang | Install dependencies"
-  apt:
+- name: Go-Lang | Install dependencies
+  ansible.builtin.apt:
     pkg:
-      - 'curl'
-      - 'gcc'
-      - 'git'
-      - 'findutils'
-      - 'make'
-      - 'rsync'
-      - 'tar'
-      - 'jq'
+      - curl
+      - gcc
+      - git
+      - findutils
+      - make
+      - rsync
+      - tar
+      - jq
     state: present
   register: apt_result
   become: true

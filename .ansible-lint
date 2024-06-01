@@ -1,0 +1,5 @@
+---
+profile: basic
+skip_list:
+  - name[template]
+  - yaml[line-length]

@@ -1,20 +1,21 @@
 ---
-- ansible.builtin.include_role:
-    name: _github
+- name: Direnv | Install from Github
+  ansible.builtin.include_role:
+    name: github
   vars:
-    name: "Direnv"
-    repo: "direnv/direnv"
-    current_version_cmd: "/usr/local/bin/direnv --version | awk 'NR==1' | sed 's/^/v/'"
-    output: "/usr/local/bin/direnv"
-    filename: "direnv.linux-%ARCH%"
+    github_task_name: Direnv
+    github_repo: direnv/direnv
+    github_current_version_cmd: /usr/local/bin/direnv --version | awk 'NR==1' | sed 's/^/v/'
+    github_output: /usr/local/bin/direnv
+    github_filename: direnv.linux-%ARCH%
 
-- name: "Direnv | Ensure {{ ansible_user_dir }}/.config/direnv dir exists"
-  file: 
+- name: Direnv | Ensure {{ ansible_user_dir }}/.config/direnv dir exists
+  ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/direnv"
     state: directory
 
-- name: "Direnv | Copy direnv.toml"
+- name: Direnv | Copy direnv.toml
   ansible.builtin.copy:
-    src: "direnv.toml"
+    src: direnv.toml
     dest: "{{ ansible_user_dir }}/.config/direnv/direnv.toml"
     mode: "0644"

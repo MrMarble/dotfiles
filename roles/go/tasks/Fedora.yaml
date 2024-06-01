@@ -1,15 +1,15 @@
 ---
-- name: "Go-Lang | Install dependencies"
-  dnf:
+- name: Go-Lang | Install dependencies
+  ansible.builtin.dnf:
     pkg:
-      - 'curl'
-      - 'gcc'
-      - 'git'
-      - 'findutils'
-      - 'make'
-      - 'rsync'
-      - 'tar'
-      - 'jq'
+      - curl
+      - gcc
+      - git
+      - findutils
+      - make
+      - rsync
+      - tar
+      - jq
     state: present
   register: dnf_result
   become: true

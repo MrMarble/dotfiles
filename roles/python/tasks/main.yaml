@@ -1,0 +1,8 @@
+---
+- name: Python | Install pip packages
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - bpytop
+    - ansible-dev-tools

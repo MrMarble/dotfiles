@@ -1,36 +1,36 @@
 ---
-- name: "Starship | Detect"
+- name: Starship | Detect
   ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.config/starship.toml"
   register: starship
 
-- name: "Starship | Register state"
+- name: Starship | Register state
   ansible.builtin.set_fact:
     starship_is_installed: "{{ starship.stat.exists }}"
 
-- name: "Starship | Debug starship_is_installed"
+- name: Starship | Debug starship_is_installed
   ansible.builtin.debug:
     var: starship_is_installed
 
-- name: "Starship | Install"
+- name: Starship | Install
   when: not starship_is_installed
   block:
-    - name: "Starship | Download Install Script"
+    - name: Starship | Download Install Script
       ansible.builtin.get_url:
         url: https://starship.rs/install.sh
         dest: /{{ ansible_user_dir }}/starship.install.sh
         force: true
         mode: "0755"
       notify:
-        - "Starship | Cleanup starship install script"
+        - Starship | Cleanup starship install script
 
-    - name: "Starship | Run the install script"
+    - name: Starship | Run the install script
       ansible.builtin.script:
         cmd: /{{ ansible_user_dir }}/starship.install.sh
       become: true
 
-- name: "Starship | Copy custom config"
+- name: Starship | Copy custom config
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.config/starship.toml"
-    src: "starship.toml"
+    src: starship.toml
     mode: "0644"
