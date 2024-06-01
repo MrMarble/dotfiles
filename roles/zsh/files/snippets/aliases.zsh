@@ -1,4 +1,5 @@
 alias ls='lsd'
+alias grep='rg'
 alias la='ls -la --color=always'
 alias ll='ls -l --color=always'
 alias cd='z'

@@ -11,6 +11,9 @@ default_roles:
   - direnv
   - lsd
   - python
+  - ripgrep
+  - fd
+  - nvim
 
 git_user_name: Alvaro Tinoco
 git_user_email: alvarotinocomarmol@gmail.com

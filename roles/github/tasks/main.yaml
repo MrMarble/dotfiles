@@ -35,7 +35,7 @@
     github_pkg_filename: "{{ github_filename | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', '')) | replace('%OS%', ansible_system
       | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64')) | replace('%ARCHRAW%', ansible_architecture)
       }}"
-    github_extracted_name: "{{ github_extracted_name | default('') | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
+    github_extracted_file: "{{ github_extracted_name | default('') | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
       | replace('%OS%', ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64'))
       | replace('%ARCHRAW%', ansible_architecture) }}"
 
@@ -72,7 +72,7 @@
     - name: "{{ github_task_name }} | Install file"
       ansible.builtin.copy:
         remote_src: true
-        src: /tmp/{{ github_extracted_name }}
+        src: /tmp/{{ github_extracted_file }}
         dest: "{{ github_output }}"
         owner: "{{ host_user }}"
         group: "{{ host_user }}"

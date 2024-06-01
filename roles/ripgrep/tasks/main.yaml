@@ -1,0 +1,19 @@
+---
+- name: Ripgrep | Install from Github
+  ansible.builtin.include_role:
+    name: github
+  vars:
+    github_task_name: Ripgrep
+    github_repo: BurntSushi/ripgrep
+    github_current_version_cmd: /usr/local/bin/rg --version | head -n 1 | sed -E 's/ripgrep ([0-9.]+).*/v\1/'
+    github_output: /usr/local/bin/rg
+    github_filename: ripgrep-%NVERSION%-%ARCHRAW%-unknown-linux-musl.tar.gz
+    github_extracted_name: ripgrep-%NVERSION%-%ARCHRAW%-unknown-linux-musl/rg
+
+- name: Zsh | Ensure {{ ansible_user_dir }}/.config/zsh/completions dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/zsh/completions"
+    state: directory
+
+- name: Ripgrep | Configure completions
+  ansible.builtin.shell: "/usr/local/bin/rg --generate complete-zsh > '{{ ansible_user_dir }}/.config/zsh/completions/_rg'"

@@ -1,0 +1,11 @@
+---
+- name: FD | Install from Github
+  ansible.builtin.include_role:
+    name: github
+  vars:
+    github_task_name: FD
+    github_repo: sharkdp/fd
+    github_current_version_cmd: /usr/local/bin/fd --version | sed 's/fd /v/'
+    github_output: /usr/local/bin/fd
+    github_filename: fd-%VERSION%-%ARCHRAW%-unknown-linux-gnu.tar.gz
+    github_extracted_name: fd-%VERSION%-%ARCHRAW%-unknown-linux-gnu/fd

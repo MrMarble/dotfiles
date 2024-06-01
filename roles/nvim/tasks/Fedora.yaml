@@ -1,0 +1,8 @@
+---
+- name: Git | {{ ansible_distribution }} | Install git
+  ansible.builtin.dnf:
+    name:
+      - neovim
+      - python-neovim
+    state: present
+  become: true
