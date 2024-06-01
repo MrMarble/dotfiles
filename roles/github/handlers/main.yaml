@@ -1,12 +1,12 @@
 ---
-- name: Cleanup {{ name }} compressed file
+- name: Cleanup {{ github_task_name }} compressed file
   ansible.builtin.file:
     path: /tmp/{{ github_pkg_filename }}
     state: absent
   become: true
 
-- name: Remove extracted {{ name }} directory
+- name: Remove extracted {{ github_task_name }} directory
   ansible.builtin.file:
-    path: /tmp/{{ github_extacted_name | split('/') | first }}
+    path: /tmp/{{ github_extracted_name | split('/') | first }}
     state: absent
   become: true
