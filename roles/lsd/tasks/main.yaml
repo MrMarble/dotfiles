@@ -1,0 +1,21 @@
+---
+- ansible.builtin.include_role:
+    name: _github
+  vars:
+    name: "LSD"
+    repo: "lsd-rs/lsd"
+    current_version_cmd: "/usr/local/bin/lsd --version | sed 's/lsd /v/'"
+    output: "/usr/local/bin/lsd"
+    filename: "lsd-%VERSION%-%ARCHRAW%-unknown-linux-gnu.tar.gz"
+    extacted_name: "lsd-%VERSION%-%ARCHRAW%-unknown-linux-gnu/lsd"
+
+- name: LSD | Ensure {{ ansible_user_dir }}/.config/lsd dir exists
+  file: 
+    path: "{{ ansible_user_dir }}/.config/lsd"
+    state: directory
+
+- name: 'LSD | Copy custom config'
+  ansible.builtin.copy:
+    dest: "{{ ansible_user_dir }}/.config/lsd/config.yaml"
+    src: "config.yaml"
+    mode: "0644"

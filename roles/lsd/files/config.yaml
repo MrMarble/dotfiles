@@ -1,0 +1,12 @@
+sorting:
+  column: name
+  dir-groupin: first
+
+date: '+%d/%m/%Y %T'
+
+icons:
+  when: never
+
+truncate-owner:
+  after: 4
+  marker: "+"

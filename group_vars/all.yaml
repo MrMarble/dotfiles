@@ -8,6 +8,7 @@ default_roles:
   - gh
   - zoxide
   - direnv
+  - lsd
 
 git_user_name: "Alvaro Tinoco"
 git_user_email: "alvarotinocomarmol@gmail.com"
