@@ -6,6 +6,7 @@
   become: true
 
 - name: Remove extracted {{ github_task_name }} directory
+  when: (github_pkg_filename.find('.tar') != -1) or (github_pkg_filename.find('.zip') != -1)
   ansible.builtin.file:
     path: /tmp/{{ github_extracted_name | split('/') | first }}
     state: absent

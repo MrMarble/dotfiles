@@ -35,9 +35,18 @@
     github_pkg_filename: "{{ github_filename | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', '')) | replace('%OS%', ansible_system
       | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64')) | replace('%ARCHRAW%', ansible_architecture)
       }}"
-    github_extracted_file: "{{ github_extracted_name | default('') | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
+    github_extracted_file: "{{ github_extracted_name | default(github_filename, true) | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
       | replace('%OS%', ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64'))
       | replace('%ARCHRAW%', ansible_architecture) }}"
+
+- name: "{{ github_task_name }} | Show github_pkg_filename debug"
+  ansible.builtin.debug:
+    var: github_pkg_filename
+
+- name: "{{ github_task_name }} | Show github_extracted_file debug"
+  when: github_extracted_file != ''
+  ansible.builtin.debug:
+    var: github_extracted_file
 
 - name: "{{ github_task_name }} | Install"
   when: latest_release not in current_version.stdout|default('')
