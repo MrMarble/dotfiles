@@ -16,4 +16,4 @@
     state: directory
 
 - name: Ripgrep | Configure completions
-  ansible.builtin.shell: "/usr/local/bin/rg --generate complete-zsh > '{{ ansible_user_dir }}/.config/zsh/completions/_rg'"
+  ansible.builtin.shell: /usr/local/bin/rg --generate complete-zsh > '{{ ansible_user_dir }}/.config/zsh/completions/_rg'

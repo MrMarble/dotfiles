@@ -32,12 +32,12 @@
 
 - name: "{{ github_task_name }} | Ensure the package facts are set"
   ansible.builtin.set_fact:
-    github_pkg_filename: "{{ github_filename | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', '')) | replace('%OS%', ansible_system
-      | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64')) | replace('%ARCHRAW%', ansible_architecture)
-      }}"
-    github_extracted_file: "{{ github_extracted_name | default(github_filename, true) | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', ''))
-      | replace('%OS%', ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64'))
-      | replace('%ARCHRAW%', ansible_architecture) }}"
+    github_pkg_filename: "{{ github_filename | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release | regex_replace('^v', '')) | replace('%OS%',
+      ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture | replace('x86_64', 'amd64')) | replace('%ARCHRAW%',
+      ansible_architecture) }}"
+    github_extracted_file: "{{ github_extracted_name | default(github_filename, true) | replace('%VERSION%', latest_release) | replace('%NVERSION%', latest_release
+      | regex_replace('^v', '')) | replace('%OS%', ansible_system | lower) | replace('%OSCAPITALIZED%', ansible_system) | replace('%ARCH%', ansible_architecture |
+      replace('x86_64', 'amd64')) | replace('%ARCHRAW%', ansible_architecture) }}"
 
 - name: "{{ github_task_name }} | Show github_pkg_filename debug"
   ansible.builtin.debug:

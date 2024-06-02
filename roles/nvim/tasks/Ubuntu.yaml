@@ -1,5 +1,5 @@
 ---
-- name: "Neovim | {{ ansible_distribution }} | Configure repository"
+- name: Neovim | {{ ansible_distribution }} | Configure repository
   ansible.builtin.apt_repository:
     repo: ppa:neovim-ppa/unstable
     state: present
