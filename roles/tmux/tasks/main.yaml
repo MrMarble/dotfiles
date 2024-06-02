@@ -1,0 +1,21 @@
+---
+- name: "Tmux | Run Tasks: {{ ansible_distribution }}"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yaml"
+
+- name: "Tmux | Install TPM"
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: Tmux | Ensure {{ ansible_user_dir }}/.config/tmux dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/tmux"
+    state: directory
+
+- name: "Tmux | Configure tmux"
+  ansible.builtin.copy:
+    src: tmux.conf
+    dest: "{{ ansible_user_dir }}/.config/tmux"
+    mode: "0644"
+    directory_mode: "0755"
+    force: true
