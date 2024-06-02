@@ -26,3 +26,8 @@ eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
 
 #tmux -2u new -As1 && exit
+
+# nvm command and completion
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[[ -r $NVM_DIR/bash_completion ]] && \. $NVM_DIR/bash_completion
