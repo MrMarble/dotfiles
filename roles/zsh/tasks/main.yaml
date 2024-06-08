@@ -42,6 +42,7 @@
   ansible.builtin.user:
     name: "{{ host_user }}"
     shell: /usr/bin/zsh
+  ignore_errors: true
   become: true
 
 - name: Zsh | Detect zsh-autosuggestions
