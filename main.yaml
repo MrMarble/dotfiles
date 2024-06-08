@@ -42,6 +42,7 @@
     - name: Run roles
       ansible.builtin.include_role:
         apply:
+          ignore_errors: true
           tags:
             - "{{ roles_item }}"
         name: "{{ roles_item }}"
