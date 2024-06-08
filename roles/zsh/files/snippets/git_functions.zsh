@@ -70,13 +70,3 @@ function grename() {
     git push --set-upstream origin "$2"
   fi
 }
-
-
-alias gco='git checkout'
-alias gcb='git checkout -b'
-alias gcd='git checkout $(git_develop_branch)'
-alias gcm='git checkout $(git_main_branch)'
-alias ggpush='git push origin "$(git_current_branch)"'
-alias ggpull='git pull origin "$(git_current_branch)"'
-alias gfa='git fetch --all --prune --jobs=10'
-alias glo='git log --oneline --decorate'

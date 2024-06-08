@@ -1,0 +1,16 @@
+alias ls='lsd'
+alias grep='rg'
+alias la='ls -la --color=always'
+alias ll='ls -l --color=always'
+alias cd='zoxide'
+
+# Git aliases
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gcd='git checkout $(git_develop_branch)'
+alias gcm='git checkout $(git_main_branch)'
+alias ggpush='git push origin "$(git_current_branch)"'
+alias ggpull='git pull origin "$(git_current_branch)"'
+alias gfa='git fetch --all --prune --jobs=10'
+alias glo='git log --oneline --decorate'
+alias gs='git status'
