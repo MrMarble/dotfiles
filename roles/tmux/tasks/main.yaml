@@ -7,15 +7,15 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
-- name: Tmux | Ensure {{ ansible_user_dir }}/.config/tmux dir exists
+- name: Tmux | Ensure {{ ansible_user_dir }}/tmux.conf dir exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/tmux"
-    state: directory
+    path: "{{ ansible_user_dir }}/tmux.conf"
+    state: file
 
 - name: Tmux | Configure tmux
   ansible.builtin.copy:
     src: tmux.conf
-    dest: "{{ ansible_user_dir }}/.config/tmux"
+    dest: "{{ ansible_user_dir }}"
     mode: "0644"
     directory_mode: "0755"
     force: true
