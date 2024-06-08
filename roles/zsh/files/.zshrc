@@ -18,6 +18,11 @@ zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
 zinit light trapd00r/LS_COLORS
 
+# Add in snippets
+zinit wait lucid for \
+  OMZP::sudo \
+  OMZP::command-not-found \
+
 # Load completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
