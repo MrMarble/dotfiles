@@ -2,7 +2,7 @@ alias ls='lsd'
 alias grep='rg'
 alias la='ls -la --color=always'
 alias ll='ls -l --color=always'
-alias cd='zoxide'
+alias cd='z'
 
 # Git aliases
 alias gco='git checkout'
@@ -14,3 +14,4 @@ alias ggpull='git pull origin "$(git_current_branch)"'
 alias gfa='git fetch --all --prune --jobs=10'
 alias glo='git log --oneline --decorate'
 alias gs='git status'
+alias grm='git rebase $(git_main_branch)'
