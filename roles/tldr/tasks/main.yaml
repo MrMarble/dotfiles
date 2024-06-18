@@ -1,0 +1,11 @@
+---
+- name: Tldr | Install from Github
+  ansible.builtin.include_role:
+    name: github
+  vars:
+    github_task_name: Tldr
+    github_repo: tldr-pages/tlrc
+    github_current_version_cmd: echo 'tldr v0.0.0' | awk 'NR==1' | sed 's/^/v/'
+    github_output: /usr/local/bin/tldr
+    github_filename: tlrc-%VERSION%-%ARCHRAW%-unknown-linux-gnu.tar.gz
+    github_extracted_name: tldr
