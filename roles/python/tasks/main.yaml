@@ -6,3 +6,4 @@
   loop:
     - bpytop
     - ansible-dev-tools
+    - ipython
