@@ -55,7 +55,6 @@
       ansible.builtin.file:
         path: /tmp/{{ github_pkg_filename }}
         state: absent
-      become: true
 
     - name: "{{ github_task_name }} | Downloading Release"
       ansible.builtin.get_url:
@@ -76,7 +75,6 @@
       ansible.builtin.file:
         path: "{{ github_output }}"
         state: absent
-      become: true
 
     - name: "{{ github_task_name }} | Install file"
       ansible.builtin.copy:
