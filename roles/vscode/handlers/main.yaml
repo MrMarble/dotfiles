@@ -1,0 +1,5 @@
+---
+- name: Remove vscode rpm
+  ansible.builtin.file:
+    path: /tmp/vscode{{ latest_version }}.rpm
+    state: absent
