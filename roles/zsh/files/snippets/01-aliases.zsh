@@ -3,6 +3,7 @@ alias grep='rg'
 alias la='ls -la --color=always'
 alias ll='ls -l --color=always'
 alias cd='z'
+alias find='fd'
 
 # Git aliases
 alias gco='git checkout'
