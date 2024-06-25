@@ -15,6 +15,26 @@ If you want to run only a specific role, you can specify the following bash comm
 curl -fsSL https://raw.githubusercontent.com/mrmarble/dotfiles/master/bin/dotfiles | bash -s -- --tags git,nvim,tmux
 ```
 
+Roles installed by default:
+  * [direnv](/roles/direnv)
+  * [fd](/roles/fd)
+  * [fonts](/roles/fonts)
+  * [fzf](/roles/fzf)
+  * [gh](/roles/gh)
+  * [git](/roles/git)
+  * [go](/roles/go)
+  * [lsd](/roles/lsd)
+  * [nvim](/roles/nvim)
+  * [nvm](/roles/nvm)
+  * [python](/roles/python)
+  * [ripgrep](/roles/ripgrep)
+  * [starship](/roles/starship)
+  * [tldr](/roles/tldr)
+  * [tmux](/roles/tmux)
+  * [zoxide](/roles/zoxide)
+  * [zsh](/roles/zsh)
+
+
 ## References
 
  - https://thevaluable.dev/zsh-install-configure-mouseless/
