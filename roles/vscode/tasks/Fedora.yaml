@@ -1,49 +1,49 @@
 ---
-- name: "VSCode | Download Latest Version JSON"
+- name: VSCode | Download Latest Version JSON
   ansible.builtin.uri:
     url: https://api.github.com/repos/microsoft/vscode/releases/latest
   register: latest_version_json
   changed_when: false
 
-- name: "VSCode | Registering VSCode Latest Release"
+- name: VSCode | Registering VSCode Latest Release
   ansible.builtin.set_fact:
     latest_release: "{{ latest_version_json.json.tag_name }}"
 
-- name: "VSCode | Registering VSCode Latest Version"
+- name: VSCode | Registering VSCode Latest Version
   ansible.builtin.set_fact:
     latest_version: "{{ latest_release.stdout | default('') }}"
 
-- name: "VSCode | Getting version information"
+- name: VSCode | Getting version information
   ansible.builtin.shell:
-    cmd: "code -v | awk 'NR==1' | sed -e 's/^/v/'"
+    cmd: code -v | awk 'NR==1' | sed -e 's/^/v/'
   args:
     executable: /bin/bash
   register: current_version
   changed_when: false
   failed_when: false
 
-- name: "VSCode | Show current_version debug"
+- name: VSCode | Show current_version debug
   ansible.builtin.debug:
     var: current_version.stdout
 
-- name: "VSCode | Show latest_release debug"
+- name: VSCode | Show latest_release debug
   ansible.builtin.debug:
     var: latest_release
 
-- name: "VSCode | Install {{ latest_release }}"
+- name: VSCode | Install {{ latest_release }}
   when: latest_release not in current_version.stdout|default('')
   block:
     # For some reason automatic download with dnf is broken
-    - name: "VSCode | Download rpm"
+    - name: VSCode | Download rpm
       ansible.builtin.get_url:
         url: https://code.visualstudio.com/sha/download?build=stable&os=linux-rpm-x64
-        dest: "/tmp/vscode_{{latest_release}}.rpm"
+        dest: /tmp/vscode_{{ latest_release }}.rpm
         mode: "0644"
         force: true
-    - name: "VSCode | Install rpm"
+    - name: VSCode | Install rpm
       dnf:
-        name: "/tmp/vscode_{{latest_release}}.rpm"
+        name: /tmp/vscode_{{ latest_release }}.rpm
         state: present
         disable_gpg_check: true
-      become: yes
+      become: true
       notify: Remove vscode rpm

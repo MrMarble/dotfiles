@@ -1,19 +1,19 @@
 ---
-- name: "Fonts | Install FiraCode"
+- name: Fonts | Install FiraCode
   ansible.builtin.copy:
-    src: "FiraCode"
-    dest: "/usr/local/share/fonts"
-    owner: "root"
-    group: "root"
+    src: FiraCode
+    dest: /usr/local/share/fonts
+    owner: root
+    group: root
     mode: "0644"
   become: true
 
-- name: "Fonts | Update SELinux context"
-  when: "ansible_distribution == 'Fedora'"
-  ansible.builtin.command: "restorecon -vFr /usr/local/share/fonts/FiraCode"
+- name: Fonts | Update SELinux context
+  when: ansible_distribution == 'Fedora'
+  ansible.builtin.command: restorecon -vFr /usr/local/share/fonts/FiraCode
   become: true
 
-- name: "Fonts | Update font cache"
+- name: Fonts | Update font cache
   ansible.builtin.command:
-    cmd: "fc-cache -f -v"
+    cmd: fc-cache -f -v
   become: true
