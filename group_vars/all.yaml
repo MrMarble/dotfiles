@@ -6,7 +6,6 @@ default_roles:
   - fzf
   - gh
   - git
-  - github
   - go
   - lsd
   - nvim
