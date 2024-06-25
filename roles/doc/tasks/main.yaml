@@ -1,5 +1,5 @@
 ---
-  - name: Generate README.md
-    template:
-      src: templates/README.md.j2
-      dest: README.md
+- name: Generate README.md
+  template:
+    src: templates/README.md.j2
+    dest: README.md
