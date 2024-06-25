@@ -1,20 +1,23 @@
 ---
 default_roles:
-  - git
+  - direnv
+  - fd
   - fonts
-  - starship
-  - zsh
-  - go
   - fzf
   - gh
-  - zoxide
-  - direnv
+  - git
+  - github
+  - go
   - lsd
+  - nvim
+  - nvm
   - python
   - ripgrep
-  - fd
-  - nvim
+  - starship
+  - tldr
   - tmux
+  - zoxide
+  - zsh
 
 git_user_name: Alvaro Tinoco
 git_user_email: alvarotinocomarmol@gmail.com
