@@ -1,16 +1,16 @@
 ---
 default_roles:
+  - git
+  - python
   - direnv
   - fd
   - fonts
   - fzf
   - gh
-  - git
   - go
   - lsd
   - nvim
   - nvm
-  - python
   - ripgrep
   - starship
   - tldr
