@@ -1,0 +1,44 @@
+---
+- name: Gnome | Configure dark theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
+
+- name: Gnome | Show battery percentage
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: true
+    state: present
+
+- name: Gnome | Disable hot corners
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/enable-hot-corners"
+    value: false
+    state: present
+
+- name: Gnome | Configure custom keybindings
+  block:
+    - name: Gnome | Configure custom keybinding
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+        value: "'<Super>t'"
+        state: present
+    - name: Gnome | Configure custom keybinding name
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+        value: "'Terminal'"
+        state: present
+    - name: Gnome | Configure custom keybinding command
+      community.general.dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+        value: "'alacritty'"
+        state: present
+
+- name: Gnome | Install extensions
+  command: gnome-extensions-cli install {{ item }}
+  loop:
+    - blur-my-shell@aunetx
+    - no-overview@fthx
+    - vscode-search-provider@mrmarble.github.com
+    - tilingshell@ferrarodomenico.com
