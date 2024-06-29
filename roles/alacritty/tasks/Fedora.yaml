@@ -1,0 +1,6 @@
+---
+- name: Alacritty | {{ ansible_distribution }} | Install alacritty
+  ansible.builtin.dnf:
+    name: alacritty
+    state: present
+  become: true

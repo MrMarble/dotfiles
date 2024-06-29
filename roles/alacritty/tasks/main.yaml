@@ -1,0 +1,10 @@
+---
+- name: "Alacritty | Run Tasks: {{ ansible_distribution }}"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yaml"
+
+- name: Alacritty | Configure alacritty
+  ansible.builtin.copy:
+    src: alacritty.toml
+    dest: "{{ ansible_user_dir }}/.config/alacritty.toml"
+    mode: "0644"
+    force: true
