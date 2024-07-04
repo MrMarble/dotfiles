@@ -4,6 +4,7 @@ alias la='ls -la --color=always'
 alias ll='ls -l --color=always'
 alias cd='z'
 alias find='fd'
+alias k='kubectl'
 
 # Git aliases
 alias gco='git checkout'

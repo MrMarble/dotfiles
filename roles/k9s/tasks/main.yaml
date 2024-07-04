@@ -1,0 +1,49 @@
+---
+- name: K9s | Download Latest Version JSON
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/derailed/k9s/releases/latest
+  register: latest_version_json
+  changed_when: false
+
+- name: K9s | Registering K9s Latest Release
+  ansible.builtin.set_fact:
+    latest_release: "{{ latest_version_json.json.tag_name }}"
+
+- name: K9s | Registering K9s Latest Version
+  ansible.builtin.set_fact:
+    latest_version: "{{ latest_release.stdout | default('') }}"
+
+- name: K9s | Getting version information
+  ansible.builtin.shell:
+    cmd: k9s -v | awk 'NR==1' | sed -e 's/^/v/'
+  args:
+    executable: /bin/bash
+  register: current_version
+  changed_when: false
+  failed_when: false
+
+- name: K9s | Show current_version debug
+  ansible.builtin.debug:
+    var: current_version.stdout
+
+- name: K9s | Show latest_release debug
+  ansible.builtin.debug:
+    var: latest_release
+
+- name: K9s | Install {{ latest_release }}
+  when: latest_release not in current_version.stdout|default('')
+  block:
+    # For some reason automatic download with dnf is broken
+    - name: K9s | Download rpm
+      ansible.builtin.get_url:
+        url: "https://github.com/derailed/k9s/releases/download/{{ latest_release }}/k9s_linux_amd64.rpm"
+        dest: /tmp/k9s_{{ latest_release }}.rpm
+        mode: "0644"
+        force: true
+
+    - name: K9s | Install rpm
+      dnf:
+        name: /tmp/k9s_{{ latest_release }}.rpm
+        state: present
+        disable_gpg_check: true
+      become: true
