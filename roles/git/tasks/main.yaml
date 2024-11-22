@@ -68,3 +68,9 @@
     name: includeIf.gitdir:~/Documents/work/.path
     scope: global
     value: ~/.gitconfig.work
+
+- name: Git | Add parent alias
+  community.general.git_config:
+    name: alias.parent
+    scope: global
+    value: "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"

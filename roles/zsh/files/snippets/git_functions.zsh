@@ -70,3 +70,10 @@ function grename() {
     git push --set-upstream origin "$2"
   fi
 }
+
+# Outputs the number of commits in the current branch
+function git_branch_commit_count() {
+  count=$(command git log $(git parent)..$(git_current_branch) --oneline 2> /dev/null | wc -l)
+  echo $count
+  return 0
+}
