@@ -62,3 +62,9 @@
     name: tag.gpgsign
     scope: global
     value: true
+
+- name: Git | Include work config
+  community.general.git_config:
+    name: includeIf.gitdir:~/Documents/work/.path
+    scope: global
+    value: ~/.gitconfig.work
