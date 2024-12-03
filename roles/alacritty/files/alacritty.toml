@@ -5,10 +5,12 @@ live_config_reload = true
   dynamic_padding = true
   decorations_theme_variant = "Dark"
   resize_increments = true
+  dimensions = { columns = 60, lines = 20 }
+  opacity = 0.9
 
 [font]
   builtin_box_drawing = false
-  size = 12.0
+  size = 10.0
 
   [font.normal]
     family = "FiraCode Nerd Font"
