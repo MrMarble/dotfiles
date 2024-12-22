@@ -16,6 +16,7 @@ addToPath $GOPATH/bin
 addToPath $HOME/go/bin
 addToPath $HOME/.dotfiles/bin
 addToPath $HOME/.cargo/bin
+addToPath $HOME/.deno/bin
 addToPathFront $HOME/.local/bin
 # fzf
 addToPath $HOME/.fzf/bin
