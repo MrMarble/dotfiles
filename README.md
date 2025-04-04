@@ -16,12 +16,14 @@ curl -fsSL https://raw.githubusercontent.com/mrmarble/dotfiles/master/bin/dotfil
 ```
 
 Roles installed by default:
+  * [1password](/roles/1password)
   * [direnv](/roles/direnv)
   * [fd](/roles/fd)
   * [fonts](/roles/fonts)
   * [fzf](/roles/fzf)
   * [gh](/roles/gh)
   * [git](/roles/git)
+  * [github](/roles/github)
   * [go](/roles/go)
   * [lsd](/roles/lsd)
   * [nvim](/roles/nvim)
@@ -31,6 +33,7 @@ Roles installed by default:
   * [starship](/roles/starship)
   * [tldr](/roles/tldr)
   * [tmux](/roles/tmux)
+  * [vscode](/roles/vscode)
   * [zoxide](/roles/zoxide)
   * [zsh](/roles/zsh)
 
